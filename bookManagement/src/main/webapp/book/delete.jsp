@@ -1,16 +1,29 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: USER
-  Date: 11/11/2021
-  Time: 11:31 AM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Delete Book</title>
+    <link rel="stylesheet" href="/assets/bootstrap-5.1.3/css/bootstrap.min.css">
 </head>
 <body>
-
+<h1>Delete</h1>
+<p>
+    <a href="/books">Back to Book List</a>
+</p>
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" value="${requestScope["bookDelete"].getName()}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Kind</label>
+        <input type="text" class="form-control" value="${requestScope["bookDelete"].getKind()}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Author</label>
+        <input type="text" class="form-control" value="${requestScope["bookDelete"].getAuthor()}">
+    </div>
+    <button type="submit" class="btn btn-primary">Delete</button>
+</form>
 </body>
 </html>

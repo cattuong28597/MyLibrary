@@ -30,10 +30,10 @@
     <tr>
         <th scope="col">Mã sách</th>
         <th scope="col">Tên</th>
-        <th scope="col">Thể loại</th>
+        <th scope="col" >Thể loại</th>
         <th scope="col">Tác giả</th>
         <th scope="col">Số lượng</th>
-        <th scope="col">Action</th>
+        <th scope="col" colspan="3" style="text-align: center">Action</th>
     </tr>
     </thead>
     <tbody>
