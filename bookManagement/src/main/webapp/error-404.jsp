@@ -11,6 +11,8 @@
     <title>Title</title>
 </head>
 <body>
-loi roi
+<h1>
+    <a href="/books">Back to list</a>
+</h1>
 </body>
 </html>

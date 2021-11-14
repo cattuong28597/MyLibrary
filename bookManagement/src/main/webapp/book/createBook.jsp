@@ -48,6 +48,11 @@
             ***${requestScope["errorQuantity"]}
         </c:if>
     </div>
+    <div>
+        <c:if test= '${requestScope["success"] != null}'>
+            ***${requestScope["success"]}
+        </c:if>
+    </div>
 </form>
 </body>
 </html>

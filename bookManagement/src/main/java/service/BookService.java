@@ -17,4 +17,8 @@ public interface BookService {
     public boolean isCheckId(String id);
 
     public boolean isFormatId(String id);
+
+    public List<Book> searchBook(String value, String symSearch);
+
+    void edit(Book book);
 }

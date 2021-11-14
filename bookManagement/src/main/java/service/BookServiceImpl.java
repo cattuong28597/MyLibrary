@@ -5,6 +5,7 @@ import model.Book;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +19,8 @@ public class BookServiceImpl implements BookService{
     private static final String DELETE_BOOK_BY_ID = "DELETE FROM Books WHERE IdBook = ?";
     private static final String INSERT_BOOK_SQL =  "INSERT INTO Books(IdBook, BookName, Kind, Author, Quantity) " +
             "VALUES(?, ?, ?, ?, ?)";
+    private static final String EDIT_BOOK_BY_ID = "UPDATE Books SET BookName = ?,Kind = ?,Author = ?,Quantity = ? " +
+            "WHERE IdBook = ?";
 
     public BookServiceImpl() {
     }
@@ -126,9 +129,64 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public boolean isFormatId(String id) {
-        String REGEXT_ID = "^[A-Z]{2}[0-9]{3}$";
-        Pattern pattern = Pattern.compile(REGEXT_ID);
+        String REGEX_ID = "^[A-Z]{2}[0-9]{3}$";
+        Pattern pattern = Pattern.compile(REGEX_ID);
         Matcher matcher = pattern.matcher(id);
         return matcher.matches();
+    }
+
+    @Override
+    public List<Book> searchBook(String value, String symSearch) {
+        List<Book> bookList = showAllBooks();
+        List<Book> listSearchBook = new ArrayList<>();
+        symSearch = symSearch.toLowerCase();
+        switch (value){
+            case "ID_Book":
+                for (Book b: bookList) {
+                    if (b.getId().toLowerCase().contains(symSearch)) {
+                        listSearchBook.add(b);
+                    }
+                }
+                break;
+            case "Name":
+                for (Book b: bookList) {
+                    if (b.getName().toLowerCase().contains(symSearch)) {
+                        listSearchBook.add(b);
+                    }
+                }
+                break;
+            case "Kind":
+                for (Book b: bookList) {
+                    if (b.getKind().toLowerCase().contains(symSearch)) {
+                        listSearchBook.add(b);
+                    }
+                }
+                break;
+            default:
+                for (Book b: bookList) {
+                    if (b.getAuthor().toLowerCase().contains(symSearch)) {
+                        listSearchBook.add(b);
+                    }
+                }
+        }
+        return listSearchBook;
+    }
+
+    @Override
+    public void edit(Book book) {
+        System.out.println(EDIT_BOOK_BY_ID);
+        try {
+            Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(EDIT_BOOK_BY_ID);
+            statement.setString(1, book.getName());
+            statement.setString(2, book.getKind());
+            statement.setString(3, book.getAuthor());
+            statement.setInt(4, book.getQuantity());
+            statement.setString(5, book.getId());
+            System.out.println(statement);
+            statement.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
