@@ -25,6 +25,8 @@ public class BookServiceImpl implements BookService{
     public BookServiceImpl() {
     }
 
+    Connection connection;
+
     protected Connection getConnection() {
         Connection connection = null;
         try {
@@ -136,39 +138,74 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public List<Book> searchBook(String value, String symSearch) {
-        List<Book> bookList = showAllBooks();
-        List<Book> listSearchBook = new ArrayList<>();
-        symSearch = symSearch.toLowerCase();
+    public List<Book> searchBook(String value, String symSearch) throws SQLException {
+
+        List<Book> listSearchBook;
+
+        String SEARCH_LIKE_SQL;
+
         switch (value){
-            case "ID_Book":
-                for (Book b: bookList) {
-                    if (b.getId().toLowerCase().contains(symSearch)) {
-                        listSearchBook.add(b);
-                    }
-                }
+            case "IdBook":
+                SEARCH_LIKE_SQL = "SELECT IdBook, BookName, Kind, Author, Quantity FROM Books WHERE IdBook LIKE ? ;";
+                listSearchBook = handleSearch(SEARCH_LIKE_SQL, symSearch, "One");
                 break;
-            case "Name":
-                for (Book b: bookList) {
-                    if (b.getName().toLowerCase().contains(symSearch)) {
-                        listSearchBook.add(b);
-                    }
-                }
+            case "BookName":
+                SEARCH_LIKE_SQL = "SELECT IdBook, BookName, Kind, Author, Quantity FROM Books WHERE BookName LIKE ? ;";
+                listSearchBook = handleSearch(SEARCH_LIKE_SQL, symSearch, "One");
                 break;
             case "Kind":
-                for (Book b: bookList) {
-                    if (b.getKind().toLowerCase().contains(symSearch)) {
-                        listSearchBook.add(b);
-                    }
-                }
+                SEARCH_LIKE_SQL = "SELECT IdBook, BookName, Kind, Author, Quantity FROM Books WHERE Kind LIKE ? ;";
+                listSearchBook = handleSearch(SEARCH_LIKE_SQL, symSearch, "One");
+                break;
+            case "Author":
+                SEARCH_LIKE_SQL = "SELECT IdBook, BookName, Kind, Author, Quantity FROM Books WHERE Author LIKE ? ;";
+                listSearchBook = handleSearch(SEARCH_LIKE_SQL, symSearch, "One");
                 break;
             default:
-                for (Book b: bookList) {
-                    if (b.getAuthor().toLowerCase().contains(symSearch)) {
-                        listSearchBook.add(b);
-                    }
-                }
+                SEARCH_LIKE_SQL = "SELECT IdBook, BookName, Kind, Author, Quantity FROM Books WHERE IdBook LIKE ? OR  BookName LIKE ?  OR  Kind LIKE ?  OR  Author LIKE ? ;";
+                listSearchBook = handleSearch(SEARCH_LIKE_SQL, symSearch, "All");
         }
+
+        return listSearchBook;
+    }
+
+    public List<Book> handleSearch(String sql, String symSearch, String modeSearch) throws SQLException {
+
+        List<Book> listSearchBook = new ArrayList<>();
+
+        try {
+            connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            String keySearch = '%' + symSearch +'%';
+
+            if (modeSearch.equals("One")) {
+                statement.setString(1, keySearch);
+            }
+
+            if (modeSearch.equals("All")) {
+                statement.setString(1, keySearch);
+                statement.setString(2, keySearch);
+                statement.setString(3, keySearch);
+                statement.setString(4, keySearch);
+            }
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                String id = rs.getString("IdBook");
+                String name = rs.getString("BookName");
+                String kind = rs.getString("Kind");
+                String author = rs.getString("Author");
+                int quantity = rs.getInt("Quantity");
+                listSearchBook.add(new Book(id, name, kind, author, quantity));
+            }
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            connection.close();
+        }
+
         return listSearchBook;
     }
 

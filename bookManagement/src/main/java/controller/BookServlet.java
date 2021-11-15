@@ -55,7 +55,7 @@ public class BookServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         String action = request.getParameter("action");
         if(action == null){
             action = "";
@@ -65,7 +65,11 @@ public class BookServlet extends HttpServlet {
                 createBook(request, response);
                 break;
             case "search":
-                searchBook(request, response);
+                try {
+                    searchBook(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "edit":
                 editBook(request,response);
@@ -204,7 +208,7 @@ public class BookServlet extends HttpServlet {
         }
     }
 
-    public void searchBook(HttpServletRequest request, HttpServletResponse response) {
+    public void searchBook(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String value = request.getParameter("value");
         String symSearch = request.getParameter("symSearch");
 

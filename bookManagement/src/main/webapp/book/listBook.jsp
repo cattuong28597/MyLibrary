@@ -19,10 +19,11 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <select class="form-control form-select" name="value">
-                            <option value="ID_Book">ID_Book</option>
-                            <option value="Name">Name</option>
+                            <option value="IdBook">ID_Book</option>
+                            <option value="BookName">Name</option>
                             <option value="Kind">Kind</option>
                             <option value="Author">Author</option>
+                            <option value="All">All</option>
                         </select>
                     </div>
 

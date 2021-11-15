@@ -2,6 +2,7 @@ package service;
 
 import model.Book;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface BookService {
@@ -18,7 +19,7 @@ public interface BookService {
 
     public boolean isFormatId(String id);
 
-    public List<Book> searchBook(String value, String symSearch);
+    public List<Book> searchBook(String value, String symSearch) throws SQLException;
 
     void edit(Book book);
 }
