@@ -71,6 +71,9 @@ public class BookServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
+            case "showCustomer":
+                showCustomer(request,response);
+                break;
             case "edit":
                 editBook(request,response);
                 break;
@@ -291,7 +294,7 @@ public class BookServlet extends HttpServlet {
         List<Customer> listCustomer = this.customerService.showCustomers();
         request.setAttribute("listCustomer", listCustomer);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("book/listCustomer.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/list.jsp");
         try {
             dispatcher.forward(request, response);
         } catch (ServletException e) {

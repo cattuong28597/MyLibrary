@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/assets/bootstrap-5.1.3/css/bootstrap.min.css">
 </head>
 <body>
+<div class="container">
 <h1>Delete</h1>
 <p>
     <a href="/books">Back to Book List</a>
@@ -25,5 +26,6 @@
     </div>
     <button type="submit" class="btn btn-primary">Delete</button>
 </form>
+</div>
 </body>
 </html>

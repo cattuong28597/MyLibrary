@@ -1,5 +1,6 @@
 package service;
 
+import com.sun.javafx.scene.layout.region.Margins;
 import model.Book;
 import model.Customer;
 
@@ -90,32 +91,45 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> searchCustomer(String value, String symSearch) {
+    public List<Customer> searchCustomer(String symSearch) {
         List<Customer> customerList = showCustomers();
         List<Customer> listSearchCustomer = new ArrayList<>();
         symSearch = symSearch.toLowerCase();
-        switch (value){
-            case "Book":
-                for (Customer c: customerList) {
-                    if (c.getNameBook().toLowerCase().contains(symSearch)) {
-                        listSearchCustomer.add(c);
-                    }
-                }
-                break;
-            case "Customer":
-                for (Customer c: customerList) {
-                    if (c.getName().toLowerCase().contains(symSearch)) {
-                        listSearchCustomer.add(c);
-                    }
-                }
-                break;
-            default:
-                for (Customer c: customerList) {
-                    if (c.getPhoneNumber().toLowerCase().contains(symSearch)) {
-                        listSearchCustomer.add(c);
-                    }
-                }
+
+        for (Customer c: customerList) {
+            if (c.getName().toLowerCase().contains(symSearch)) {
+                listSearchCustomer.add(c);
+            }
         }
+
+//        for (Customer c: customerList) {
+//            if (c.getId() == s) {
+//                listSearchCustomer.add(c);
+//            }
+//        }
+
+//        switch (value){
+//            case "Book":
+//                for (Customer c: customerList) {
+//                    if (c.getNameBook().toLowerCase().contains(symSearch)) {
+//                        listSearchCustomer.add(c);
+//                    }
+//                }
+//                break;
+//            case "Customer":
+//                for (Customer c: customerList) {
+//                    if (c.getName().toLowerCase().contains(symSearch)) {
+//                        listSearchCustomer.add(c);
+//                    }
+//                }
+//                break;
+//            default:
+//                for (Customer c: customerList) {
+//                    if (c.getPhoneNumber().toLowerCase().contains(symSearch)) {
+//                        listSearchCustomer.add(c);
+//                    }
+//                }
+//        }
         return listSearchCustomer;
     }
 }

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/assets/bootstrap-5.1.3/css/bootstrap.min.css">
 </head>
 <body>
+<div class="container">
 <h1>Book</h1>
 <h2>
     <a href="/books">Back to List Book</a>
@@ -39,6 +40,7 @@
     </c:forEach>
     </tbody>
 </table>
+</div>
 </body>
 </html>
 

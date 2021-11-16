@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface CustomerService {
 
-    public List<Customer> showCustomers();
+    List<Customer> showCustomers();
 
-    public void createCustomer(Customer customer);
+    void createCustomer(Customer customer);
 
-    public void deleteCustomer(int idBorrow);
+    void deleteCustomer(int idBorrow);
 
-    public List<Customer> searchCustomer(String value, String symSearch);
+    List<Customer> searchCustomer(String symSearch);
 }

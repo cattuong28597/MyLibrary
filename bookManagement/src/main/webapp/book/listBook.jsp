@@ -7,7 +7,6 @@
 </head>
 <body>
 <div class="container">
-    <h1>Book</h1>
     <h2>
         <a href="/books?action=create">Add New Book</a>
     </h2>
@@ -36,6 +35,7 @@
         </div>
     </div>
     <h3><a href="/books?action=showCustomer">Danh sách người mượn</a></h3>
+    <h1>Book</h1>
     <table class="table table-striped table-hover">
         <thead>
         <tr>

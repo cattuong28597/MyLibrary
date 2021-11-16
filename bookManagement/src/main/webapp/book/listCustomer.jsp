@@ -12,7 +12,20 @@
         <h6>
             <a href="/books">Back to Book List</a>
         </h6>
-        <h1>Customers</h1>
+
+        <div class="col-sm-12 row">
+            <div class="col-4">
+                <h1>Customers</h1>
+            </div>
+            <div class="col-8">
+                <div class="col-6">
+                    <form action="${pageContext.request.contextPath}/books?action=showCustomer" method="get">
+                        <input type="text" class="col-sm-6" placeholder="Customer info..." name="symSearch">
+                        <input class="col-sm-4" type="submit" value="Search">
+                    </form>
+                </div>
+            </div>
+        </div>
         <table class="table table-striped table-hover">
             <thead>
             <tr>
