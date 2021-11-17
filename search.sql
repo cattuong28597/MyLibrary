@@ -1,0 +1,1 @@
+SELECT IdBook, BookName, Kind, Author, Quantity FROM Books WHERE IdBook LIKE '2%' OR BookName LIKE '2%' ;
